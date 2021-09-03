@@ -1,0 +1,14 @@
+header {
+  background-color: #282c34;
+  padding: calc(10px);
+  display: flex;
+}
+
+.logo {
+  height: 24px;
+}
+
+.err {
+  text-align: center;
+  padding-top: 50px;
+}
