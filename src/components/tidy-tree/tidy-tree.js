@@ -18,17 +18,17 @@ export default function define(runtime, observer) {
       .attr("font-size", 10)
       .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`);
 
-    // const link = g.append("g")
-    //   .attr("fill", "none")
-    //   .attr("stroke", "#555")
-    //   .attr("stroke-opacity", 0.4)
-    //   .attr("stroke-width", 1.5)
-    //   .selectAll("path")
-    //   .data(root.links())
-    //   .join("path")
-    //   .attr("d", d3.linkHorizontal()
-    //     .x(d => d.y)
-    //     .y(d => d.x));
+    g.append("g")
+      .attr("fill", "none")
+      .attr("stroke", "#555")
+      .attr("stroke-opacity", 0.4)
+      .attr("stroke-width", 1.5)
+      .selectAll("path")
+      .data(root.links())
+      .join("path")
+      .attr("d", d3.linkHorizontal()
+        .x(d => d.y)
+        .y(d => d.x));
 
     const node = g.append("g")
       .attr("stroke-linejoin", "round")
