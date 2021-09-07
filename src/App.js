@@ -1,7 +1,8 @@
 import { Runtime, Inspector } from '@observablehq/runtime';
 import React, { useEffect, useRef, useState } from 'react';
-import zoomable_sunburst from './components/zoomable-sunburst';
-import nested_treemap from './components/nested-treemap';
+import nestedTreemap from './components/nested-treemap';
+import zoomableSunburst from './components/zoomable-sunburst';
+import tidyTree from './components/tidy-tree';
 import './App.css';
 import logo from './logo.png';
 import { makeStyles, Box, CircularProgress } from "@material-ui/core";
@@ -34,7 +35,6 @@ const App = props => {
 
   useEffect(() => {
     (async () => {
-      console.log('Mounting App')
       
       setLoading(true)
       // const res = await fetchData('123')
@@ -46,11 +46,15 @@ const App = props => {
       if (res.success) {
         const cacheKey = new URLSearchParams(window.location.search).get("key")
         if (cacheKey === '1') {
-          notebook = nested_treemap
+          notebook = nestedTreemap
         } else if (cacheKey === '2') {
-          notebook = zoomable_sunburst
+          notebook = zoomableSunburst
+        } else if (cacheKey === '3') {
+          notebook = tidyTree
         } else {
-          notebook = zoomable_sunburst
+          setError(true)
+          setErrMsg("key parameter is invalid")
+          return
         }
         setKey(cacheKey)
 
@@ -69,10 +73,6 @@ const App = props => {
       }
     })()
   }, [])
-
-  useEffect(() => {
-    console.log('Rendering App')
-  })
 
   let chartCls = '';
   if (key === '2') {
