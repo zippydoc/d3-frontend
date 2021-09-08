@@ -88,7 +88,7 @@ const App = props => {
   }, [])
 
   let chartCls = '';
-  if (chartType === 'zoomableSunburst') {
+  if (chartType === 'zoomable_sunburst') {
     chartCls = classes.boxSunburst
   }
 
