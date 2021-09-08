@@ -64,7 +64,7 @@ const App = props => {
             break
           default:
             setError(true)
-            setErrMsg("type parameter is invalid")
+            setErrMsg(`type parameter "${res.data.type}" is invalid`)
             return
         }
         
