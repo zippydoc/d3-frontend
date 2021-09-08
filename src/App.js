@@ -37,6 +37,12 @@ const App = props => {
   useEffect(() => {
     (async () => {
       const cacheKey = new URLSearchParams(window.location.search).get("key")
+
+      if (!cacheKey) {
+        setError(true)
+        setErrMsg("couldn't find `key` parameter in query string")
+        return
+      }
       
       setLoading(true)
       const { success, message, data: { type, data } } = await fetchData(cacheKey)
