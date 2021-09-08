@@ -98,7 +98,7 @@ const App = props => {
         <a href="https://zippydoc.de/" target="_blank" rel="noopener noreferrer">
           <img src={logo} alt="logo" className="logo" />
         </a>
-        <Box className={classes.title}>ZippyDoc Chart</Box>
+        <Box className={classes.title}>D3 Chart - powered by ZIPPYDOC</Box>
       </header>
       {loading &&
         <Box className={classes.loading}>
