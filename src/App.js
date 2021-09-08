@@ -13,6 +13,8 @@ const fetchData = async (key) => {
   try {
     const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
     console.log('res', res)
+    console.log('res.body', res.body)
+    console.log('res.body.json()', res.body.json())
 
     if (res.status >= 400) {
       console.error(res)
