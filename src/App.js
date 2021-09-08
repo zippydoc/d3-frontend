@@ -9,54 +9,58 @@ import { makeStyles, Box, CircularProgress } from "@material-ui/core";
 
 const d3data = require('./flare.json');
 
-// const fetchData = async (key) => {
-//   try {
-//     const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+const fetchData = async (key) => {
+  try {
+    const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+    console.log('res', res)
 
-//     if (res.status >= 400) {
-//       console.error(res)
-//       throw new Error("Bad response from server")
-//     }
-//     return { 'success': true, 'data': res.json() }
-//   } catch (err) {
-//     console.error(err)
-//     return { 'success': false, 'message': err.message }
-//   }
-// }
+    if (res.status >= 400) {
+      console.error(res)
+      throw new Error("Bad response from server")
+    }
+    return { 'success': true, 'data': res.json() }
+  } catch (err) {
+    console.error(err)
+    return { 'success': false, 'message': err.message }
+  }
+}
 
 const App = props => {
   const ref = useRef()
   const [ loading, setLoading ] = useState(false)
   const [ error, setError ] = useState(false)
   const [ errMsg, setErrMsg ] = useState('')
-  const [ key, setKey ] = useState(null)
+  const [ chartType, setChartType ] = useState(null)
 
   const classes = useStyles();
 
   useEffect(() => {
     (async () => {
+      const cacheKey = new URLSearchParams(window.location.search).get("key")
       
       setLoading(true)
-      // const res = await fetchData('123')
-      const res = {success: true, data: d3data}
+      const { success, data: { type, data } } = await fetchData(cacheKey)
+      // const res = {success: true, data: d3data}
       setLoading(false)
 
       let notebook;
 
-      if (res.success) {
-        const cacheKey = new URLSearchParams(window.location.search).get("key")
-        if (cacheKey === '1') {
-          notebook = nestedTreemap
-        } else if (cacheKey === '2') {
-          notebook = zoomableSunburst
-        } else if (cacheKey === '3') {
-          notebook = tidyTree
-        } else {
-          setError(true)
-          setErrMsg("key parameter is invalid")
-          return
+      if (success) {
+        switch (type) {
+          case 'treemap':
+            notebook = nestedTreemap
+            break
+          case 'zoomable_sunburst':
+            notebook = zoomableSunburst
+          case 'tidy_tree':
+            notebook = tidyTree
+          default:
+            setError(true)
+            setErrMsg("type parameter is invalid")
+            return
         }
-        setKey(cacheKey)
+        
+        setChartType(type)
 
         const runtime = new Runtime()
         
@@ -75,7 +79,7 @@ const App = props => {
   }, [])
 
   let chartCls = '';
-  if (key === '2') {
+  if (chartType === 'zoomableSunburst') {
     chartCls = classes.boxSunburst
   }
 
