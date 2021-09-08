@@ -45,14 +45,14 @@ const App = props => {
       }
       
       setLoading(true)
-      const { success, message, data: { type, data } } = await fetchData(cacheKey)
+      const res = await fetchData(cacheKey)
       // const res = {success: true, data: d3data}
       setLoading(false)
 
       let notebook;
 
-      if (success) {
-        switch (type) {
+      if (res.success) {
+        switch (res.data.type) {
           case 'treemap':
             notebook = nestedTreemap
             break
@@ -68,7 +68,7 @@ const App = props => {
             return
         }
         
-        setChartType(type)
+        setChartType(res.data.type)
 
         const runtime = new Runtime()
         
@@ -76,12 +76,12 @@ const App = props => {
           if (name === 'chart') {
             return new Inspector(ref.current)
           }
-        }).variable().define("data", data);
+        }).variable().define("data", res.data.data);
 
         return () => runtime.dispose()
       } else {
         setError(true)
-        setErrMsg(message)
+        setErrMsg(res.message)
       }
     })()
   }, [])
