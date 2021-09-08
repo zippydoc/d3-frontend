@@ -46,6 +46,7 @@ const App = props => {
       
       setLoading(true)
       const res = await fetchData(cacheKey)
+      console.log('ComponentDidMount', res)
       // const res = {success: true, data: d3data}
       setLoading(false)
 
