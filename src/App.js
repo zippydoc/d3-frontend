@@ -5,7 +5,7 @@ import zoomableSunburst from './components/zoomable-sunburst';
 import tidyTree from './components/tidy-tree';
 import './App.css';
 import logo from './logo.png';
-import { makeStyles, Box, CircularProgress } from "@material-ui/core";
+import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
 
 // const d3data = require('./flare.json');
 
@@ -98,7 +98,9 @@ const App = props => {
         <a href="https://zippydoc.de/" target="_blank" rel="noopener noreferrer">
           <img src={logo} alt="logo" className="logo" />
         </a>
-        <Box className={classes.title}>D3 Chart - powered by ZIPPYDOC</Box>
+        <Link href="https://zippydoc.de/" className={classes.title} target="_blank">
+          D3 Chart - powered by ZIPPYDOC
+        </Link>
       </header>
       {loading &&
         <Box className={classes.loading}>
