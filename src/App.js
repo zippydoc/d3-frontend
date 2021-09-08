@@ -10,21 +10,38 @@ import { makeStyles, Box, CircularProgress } from "@material-ui/core";
 // const d3data = require('./flare.json');
 
 const fetchData = async (key) => {
-  try {
+  // try {
+  //   const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+
+  //   if (res.status >= 400) {
+  //     console.error(res)
+  //     throw new Error("Bad response from server")
+  //   }
+  //   return { 'success': true, 'data': res.json() }
+  // } catch (err) {
+  //   console.error(err)
+  //   return { 'success': false, 'message': err.message }
+  // }
+
+  fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+    .then(function(res) {
+      if (res.status >= 400) {
+        console.error(res)
+        throw new Error("Bad response from server")
+      } else {
+        return res.json()
+      }
+    })
+    .then(function(data) {
+      console.log('res.data', data)
+      return { 'success': true, 'data': data }
+    })
+    .catch(function(err) {
+      console.error(err)
+      return { 'success': false, 'message': err.message }
+    })
     const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
     console.log('res', res)
-    console.log('res.body', res.body)
-    console.log('res.body.json()', res.body.json())
-
-    if (res.status >= 400) {
-      console.error(res)
-      throw new Error("Bad response from server")
-    }
-    return { 'success': true, 'data': res.json() }
-  } catch (err) {
-    console.error(err)
-    return { 'success': false, 'message': err.message }
-  }
 }
 
 const App = props => {
