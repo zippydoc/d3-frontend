@@ -7,7 +7,7 @@ import './App.css';
 import logo from './logo.png';
 import { makeStyles, Box, CircularProgress } from "@material-ui/core";
 
-const d3data = require('./flare.json');
+// const d3data = require('./flare.json');
 
 const fetchData = async (key) => {
   try {
@@ -39,7 +39,7 @@ const App = props => {
       const cacheKey = new URLSearchParams(window.location.search).get("key")
       
       setLoading(true)
-      const { success, data: { type, data } } = await fetchData(cacheKey)
+      const { success, message, data: { type, data } } = await fetchData(cacheKey)
       // const res = {success: true, data: d3data}
       setLoading(false)
 
@@ -52,8 +52,10 @@ const App = props => {
             break
           case 'zoomable_sunburst':
             notebook = zoomableSunburst
+            break
           case 'tidy_tree':
             notebook = tidyTree
+            break
           default:
             setError(true)
             setErrMsg("type parameter is invalid")
@@ -68,12 +70,12 @@ const App = props => {
           if (name === 'chart') {
             return new Inspector(ref.current)
           }
-        }).variable().define("data", res.data);
+        }).variable().define("data", data);
 
         return () => runtime.dispose()
       } else {
         setError(true)
-        setErrMsg(res.message)
+        setErrMsg(message)
       }
     })()
   }, [])
