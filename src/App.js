@@ -11,7 +11,7 @@ import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
 
 const fetchData = async (key) => {
   try {
-    const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+    const res = await fetch(`https://api.prod.zippydoc.net/api/core/admin/sql/cache/${key}`)
 
     if (res.status >= 400) {
       console.error(res)
