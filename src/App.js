@@ -50,6 +50,12 @@ const App = props => {
       // const res = {success: true, data: d3data}
       setLoading(false)
 
+      if (res.data.data.children.length === 0) {
+        setError(true)
+        setErrMsg(`data is empty`)
+        return
+      }
+
       let notebook;
 
       if (res.success) {
