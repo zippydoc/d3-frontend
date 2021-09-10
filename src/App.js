@@ -12,7 +12,7 @@ import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
 const fetchData = async (key, env) => {
   try {
     let api_host;
-    if (env === 'test') {
+    if (env === 'dev') {
       api_host = 'test.zippydoc.org'
     } else {
       api_host = 'api.prod.zippydoc.net'
