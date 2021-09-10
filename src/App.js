@@ -9,9 +9,16 @@ import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
 
 // const d3data = require('./flare.json');
 
-const fetchData = async (key) => {
+const fetchData = async (key, env) => {
   try {
-    const res = await fetch(`https://test.zippydoc.org/api/core/admin/sql/cache/${key}`)
+    let api_host;
+    if (env === 'test') {
+      api_host = 'test.zippydoc.org'
+    } else {
+      api_host = 'api.prod.zippydoc.net'
+    }
+
+    const res = await fetch(`https://${api_host}/api/core/admin/sql/cache/${key}`)
 
     if (res.status >= 400) {
       console.error(res)
@@ -37,6 +44,7 @@ const App = props => {
   useEffect(() => {
     (async () => {
       const cacheKey = new URLSearchParams(window.location.search).get("key")
+      const env = new URLSearchParams(window.location.search).get("env")
 
       if (!cacheKey) {
         setError(true)
@@ -45,7 +53,7 @@ const App = props => {
       }
       
       setLoading(true)
-      const res = await fetchData(cacheKey)
+      const res = await fetchData(cacheKey, env)
       console.log('ComponentDidMount', res)
       // const res = {success: true, data: d3data}
       setLoading(false)
