@@ -25,7 +25,7 @@ export default function define(runtime, observer) {
       .on("click", clicked);
 
     path.append("title")
-      .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
+      .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${d.value}`);
 
     const label = g.append("g")
       .attr("pointer-events", "none")

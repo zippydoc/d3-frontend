@@ -26,7 +26,7 @@ export default function define(runtime, observer) {
       .attr("transform", d => `translate(${d.x0},${d.y0})`);
 
     node.append("title")
-      .text(d => `${d.ancestors().reverse().map(d => d.data.name).join("/")}\n${format(d.value)}`);
+      .text(d => `${d.ancestors().reverse().map(d => d.data.name).join("/")}\n${d.value}`);
 
     node.append("rect")
       .attr("id", d => (d.nodeUid = DOM.uid("node")).id)
