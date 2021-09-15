@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import nestedTreemap from './components/nested-treemap';
 import zoomableSunburst from './components/zoomable-sunburst';
 import tidyTree from './components/tidy-tree';
+import collapsibleTree from './components/collapsible-tree';
+import radialDendrogram from './components/radial-dendrogram';
 import './App.css';
 import logo from './logo.png';
 import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
@@ -54,8 +56,11 @@ const App = props => {
       
       setLoading(true)
       const res = await fetchData(cacheKey, env)
-      console.log('ComponentDidMount', res)
-      // const res = {success: true, data: d3data}
+      // const data = {
+      //   'type': 'tidy_tree',
+      //   'data': d3data
+      // }
+      // const res = {success: true, data: data}
       setLoading(false)
 
       if (res.data.data.children.length === 0) {
@@ -76,6 +81,12 @@ const App = props => {
             break
           case 'tidy_tree':
             notebook = tidyTree
+            break
+          case 'collapsible_tree':
+            notebook = collapsibleTree
+            break
+          case 'radial_dendrogram':
+            notebook = radialDendrogram
             break
           default:
             setError(true)
