@@ -5,11 +5,15 @@ import zoomableSunburst from './components/zoomable-sunburst';
 import tidyTree from './components/tidy-tree';
 import collapsibleTree from './components/collapsible-tree';
 import radialDendrogram from './components/radial-dendrogram';
+import barChart from './components/bar-chart';
+import stackedBarChart from './components/stacked-bar-chart';
 import './App.css';
 import logo from './logo.png';
 import { makeStyles, Box, CircularProgress, Link } from "@material-ui/core";
 
-// const d3data = require('./flare.json');
+// const d3data = require('./mock_data/flare.json');
+// const d3data = require('./mock_data/bar_chart.json');
+// const d3data = require('./mock_data/stacked_bar_chart.json');
 
 const fetchData = async (key, env) => {
   try {
@@ -58,15 +62,25 @@ const App = props => {
       const res = await fetchData(cacheKey, env)
       // const data = {
       //   'type': 'tidy_tree',
+      //   'type': 'bar_chart',
+      //   // 'type': 'stacked_bar_chart',
       //   'data': d3data
       // }
       // const res = {success: true, data: data}
       setLoading(false)
 
-      if (res.data.data.children.length === 0) {
-        setError(true)
-        setErrMsg(`data is empty`)
-        return
+      if (res.data.type === 'bar_chart' || res.data.type === 'stacked_bar_chart') {
+        if (res.data.data.length === 0) {
+          setError(true)
+          setErrMsg(`data is empty`)
+          return
+        }
+      } else {
+        if (res.data.data.children.length === 0) {
+          setError(true)
+          setErrMsg(`data is empty`)
+          return
+        }
       }
 
       let notebook;
@@ -87,6 +101,12 @@ const App = props => {
             break
           case 'radial_dendrogram':
             notebook = radialDendrogram
+            break
+          case 'bar_chart':
+            notebook = barChart
+            break
+          case 'stacked_bar_chart':
+            notebook = stackedBarChart
             break
           default:
             setError(true)
