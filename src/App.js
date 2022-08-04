@@ -60,6 +60,7 @@ const App = props => {
       
       setLoading(true)
       const res = await fetchData(cacheKey, env)
+      console.log('response', res)
       // const data = {
       //   'type': 'tidy_tree',
       //   'type': 'bar_chart',
