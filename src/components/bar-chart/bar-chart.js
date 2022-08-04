@@ -9,9 +9,9 @@ This chart shows the relative frequency of letters in the English language. A ve
 
 function _chart(BarChart,alphabet,d3,width){return(
 BarChart(alphabet, {
-  x: d => d.letter,
-  y: d => d.frequency,
-  xDomain: d3.groupSort(alphabet, ([d]) => -d.frequency, d => d.letter), // sort by descending frequency
+  x: d => d.x,
+  y: d => d.y,
+  xDomain: d3.groupSort(alphabet, ([d]) => -d.y, d => d.x), // sort by descending frequency
   // yFormat: "%",
   yFormat: "",
   yLabel: "↑ Y axis",
