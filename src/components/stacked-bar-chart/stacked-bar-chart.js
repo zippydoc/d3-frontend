@@ -26,9 +26,9 @@ StackedBarChart(stateages, {
 })
 )}
 
-function _states(FileAttachment){return(
-FileAttachment("us-population-state-age.csv").csv({typed: true})
-)}
+// function _states(FileAttachment){return(
+// FileAttachment("us-population-state-age.csv").csv({typed: true})
+// )}
 
 // function _ages(states){return(
 // states.columns.slice(1)

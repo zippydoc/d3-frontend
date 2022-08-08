@@ -277,9 +277,9 @@ function Swatches(color, {
   const domain = color.domain().concat(unknowns);
   if (format === undefined) format = x => x === unknown ? formatUnknown : x;
 
-  function entity(character) {
-    return `&#${character.charCodeAt(0).toString()};`;
-  }
+  // function entity(character) {
+  //   return `&#${character.charCodeAt(0).toString()};`;
+  // }
 
   if (columns !== null) return htl.html`<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
   <style>
